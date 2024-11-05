@@ -1,42 +1,13 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Checkout') {
-            steps {
-                // Check out the code from the repository
-                checkout scm
-            }
-        }
-
-     stage('Build') {
-              agent {
+  agent none
+  stages {
+    stage('Back-end') {
+      agent {
         docker { image 'maven:3.8.1-adoptopenjdk-11' }
       }
-            steps {
-                // Use Maven to build the project
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Execute') {
-
-              agent {
-        docker { image 'maven:3.8.1-adoptopenjdk-11' }
+      steps {
+        sh 'mvn clean install'
       }
-            steps {
-                // Use Maven to run the HelloWorld application
-                sh 'mvn exec:java -Dexec.mainClass="com.vishnu.HelloWorld"'
-            }
-        }
     }
-
-    post {
-        success {
-            echo 'Build and execution successful!'
-        }
-        failure {
-            echo 'Build or execution failed.'
-        }
-    }
-}
+  }
+}   
