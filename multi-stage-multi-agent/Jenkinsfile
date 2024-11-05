@@ -7,6 +7,7 @@ pipeline {
       }
       steps {
         checkout scm
+        sh 'ls -al'
         sh 'mvn clean install'
       }
     }
