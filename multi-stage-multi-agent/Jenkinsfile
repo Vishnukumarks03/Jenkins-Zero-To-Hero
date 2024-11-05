@@ -8,7 +8,7 @@ pipeline {
       steps {
         checkout scm
         sh 'ls -al'
-        sh 'mvn clean install'
+        sh 'mvn -f multi-stage-multi-agent/pom.xml clean install'
       }
     }
   }
